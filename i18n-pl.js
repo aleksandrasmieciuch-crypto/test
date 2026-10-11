@@ -1,4 +1,5 @@
-export default {
+// Teksty interfejsu (pl). Kolejny język: skopiuj plik i przetłumacz wartości.
+window.ROI_I18N_PL = {
   'app.title': 'Kalkulator ROI budżetu',
   'app.lead': 'Rozpisz roczny budżet na kategorie i sprawdź oczekiwany zwrot z każdej z nich oraz z całości.',
   'app.disclaimer':
