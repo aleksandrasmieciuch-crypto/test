@@ -1,0 +1,14 @@
+{
+  "name": "kalkulator-roi-budzetu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kalkulator ROI budżetu — MVP (F1–F8) z PRD",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

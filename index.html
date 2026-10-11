@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator ROI budżetu</title>
+  <meta name="description" content="Rozpisz roczny budżet na kategorie i sprawdź oczekiwany zwrot z inwestycji.">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="src/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Przejdź do kalkulatora</a>
+  <header class="app-header">
+    <h1 data-i18n="app.title">Kalkulator ROI budżetu</h1>
+    <p class="lead" data-i18n="app.lead"></p>
+  </header>
+
+  <main id="main" class="layout">
+    <div class="col-input">
+      <section class="card" aria-labelledby="budget-heading">
+        <h2 id="budget-heading" class="visually-hidden" data-i18n="budget.label"></h2>
+        <div class="budget-row">
+          <div class="field field--grow">
+            <label for="budget" data-i18n="budget.label"></label>
+            <input id="budget" type="text" inputmode="decimal" autocomplete="off"
+                   placeholder="100 000" aria-describedby="budget-error">
+            <p id="budget-error" class="field-error" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="currency" data-i18n="budget.currency"></label>
+            <select id="currency">
+              <option>PLN</option><option>EUR</option><option>USD</option>
+              <option>GBP</option><option>CHF</option><option>CZK</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="progress-block" data-status="empty" id="progress-block">
+          <div class="progress-head">
+            <span id="progress-label" class="progress-label"></span>
+            <span id="status-badge" class="badge"></span>
+          </div>
+          <div class="progress" role="progressbar" aria-labelledby="progress-label"
+               aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p id="status-message" class="status-message" aria-live="polite"></p>
+          <div class="remainder" id="remainder" hidden>
+            <label for="remainder-target" data-i18n="remainder.label"></label>
+            <div class="remainder-controls">
+              <select id="remainder-target"></select>
+              <button type="button" class="btn btn--secondary" id="remainder-btn" data-i18n="remainder.button"></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="categories-heading">
+        <div class="section-head">
+          <h2 id="categories-heading" data-i18n="categories.title"></h2>
+          <span class="count" id="category-count"></span>
+        </div>
+        <p class="empty-state" id="empty-state" data-i18n="categories.empty"></p>
+        <table class="categories" id="categories-table">
+          <thead>
+            <tr>
+              <th scope="col" data-i18n="col.name"></th>
+              <th scope="col" class="num" data-i18n="col.share"></th>
+              <th scope="col" class="num" data-i18n="col.roi"></th>
+              <th scope="col" class="num" data-i18n="col.amount"></th>
+              <th scope="col" class="num" data-i18n="col.profit"></th>
+              <th scope="col" class="num" data-i18n="col.final"></th>
+              <th scope="col"><span class="visually-hidden" data-i18n="col.actions"></span></th>
+            </tr>
+          </thead>
+          <tbody id="categories-body"></tbody>
+        </table>
+        <div class="table-footer">
+          <button type="button" class="btn btn--primary" id="add-category">
+            <span aria-hidden="true">+</span> <span data-i18n="categories.add"></span>
+          </button>
+          <p class="hint" id="categories-hint" data-i18n="categories.hint"></p>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-output">
+      <section class="card summary" aria-labelledby="summary-heading" id="summary" data-status="empty">
+        <h2 id="summary-heading" data-i18n="summary.title"></h2>
+        <dl class="stats">
+          <div class="stat"><dt data-i18n="summary.amount"></dt><dd id="sum-amount">—</dd></div>
+          <div class="stat"><dt data-i18n="summary.profit"></dt><dd id="sum-profit">—</dd></div>
+          <div class="stat stat--hero"><dt data-i18n="summary.roi"></dt><dd id="sum-roi">—</dd></div>
+          <div class="stat"><dt data-i18n="summary.final"></dt><dd id="sum-final">—</dd></div>
+        </dl>
+        <p class="summary-note" id="summary-note"></p>
+      </section>
+
+      <section class="card" aria-labelledby="chart-share-heading">
+        <h2 id="chart-share-heading" data-i18n="chart.share.title"></h2>
+        <div class="chart" id="chart-share"></div>
+      </section>
+
+      <section class="card" aria-labelledby="chart-profit-heading">
+        <h2 id="chart-profit-heading" data-i18n="chart.profit.title"></h2>
+        <div class="chart" id="chart-profit"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p class="disclaimer" role="note"><strong aria-hidden="true">ⓘ</strong> <span data-i18n="app.disclaimer"></span></p>
+    <p data-i18n="app.privacy"></p>
+  </footer>
+
+  <div class="toast" id="toast" hidden>
+    <span id="toast-text"></span>
+    <button type="button" class="btn btn--link" id="toast-undo" data-i18n="toast.undo"></button>
+  </div>
+  <div class="tooltip" id="tooltip" hidden></div>
+  <div class="visually-hidden" id="announcer" aria-live="polite"></div>
+</body>
+</html>
